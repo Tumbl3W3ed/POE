@@ -9,9 +9,10 @@ namespace POE
     class Leader : Enemy
     {
         private Tile LeadersTarget;
-        public Tile LeadersTarget1 { get => LeadersTarget; set => LeadersTarget = value; }
-        public Leader(int y, int x) : base(y, x, 20, 2, 'L')
+        public Tile leadersTarget { get => LeadersTarget; set => LeadersTarget = value; }
+        public Leader(int y, int x, Tile target) : base(y, x, 20, 2, 'L')
         {
+            leadersTarget = target;
         }
 
 

@@ -9,7 +9,7 @@ namespace POE
     internal class MeleeWeapon : Weapon
     {
         public enum Types { Dagger, LongSword }
-        public override int Range { get => 1; set => base.Range = 1; }
+        public override int Range { get => 1;}
 
         public MeleeWeapon(Types type) : base(0, 0, 0, 0, "", 0, 0)
         {
