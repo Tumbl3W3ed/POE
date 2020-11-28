@@ -101,7 +101,7 @@ namespace POE
             switch (type)
             {
                 case Tile.TileType.Hero:
-                    return new Hero(y, x, 40);
+                    return new Hero(y, x, 80);
                 case Tile.TileType.Enemy:
                     if (LeaderSpawned == false)
                     {
@@ -136,7 +136,7 @@ namespace POE
 
             }
             return null;
-        }
+        } 
         public Item GetItemAtPosition(int y, int x)
         {
             Item item = null;

@@ -12,15 +12,18 @@ namespace POE
 
         public void WriteData<T>(T objectToWrite, bool append = false)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
+            SaveFileDialog openFileDialog = new SaveFileDialog();
             if (openFileDialog.ShowDialog() != DialogResult.OK)
             {
                 return;
             }
             string file = openFileDialog.FileName;
             Stream stream = File.Open(file, append ? FileMode.Append : FileMode.Create);
+            
             var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
             binaryFormatter.Serialize(stream, objectToWrite);
+            stream.Dispose();
+            
         }
     }
 }

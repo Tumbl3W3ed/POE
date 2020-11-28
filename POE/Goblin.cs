@@ -14,6 +14,8 @@
             int direction = random.Next(0, 4);
             for (int i = 0; i < vision.Length; i++)
             {
+                if (vision[i]?.GetType() == typeof(Hero))
+                    return MovementEnum.NoMovement;
                 if (vision[i] == null)
                 {
                     canmove = true;
@@ -42,7 +44,7 @@
 
         public override string ToString()
         {
-            return (weapon != null ? "Equipped: " : "BareHanded: ")+"Goblin"+base.ToString();
+            return (weapon != null ? "Equipped: " : "BareHanded: ") + "Goblin" + base.ToString();
         }
     }
 }

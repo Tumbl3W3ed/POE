@@ -50,10 +50,12 @@ namespace POE
             {
                 if (character.X - 1 != 0 && (character.Vision[2] == null || character.Vision[2].ThisTileType == Tile.TileType.Gold || character.Vision[2].ThisTileType == Tile.TileType.Weapon))
                 {
+                    character.Pickup(map.GetItemAtPosition(character.Y, character.X));
                     map.ThisMap[character.Y, character.X] = null;
                     character.Move(Character.MovementEnum.Left);
+                    
                     map.ThisMap[character.Y, character.X] = character;
-                    character.Pickup(map.GetItemAtPosition(character.Y, character.X));
+       
                     return true;
                 }
             }
@@ -61,10 +63,12 @@ namespace POE
             {
                 if (character.X + 2 != map.MapWidth && (character.Vision[3] == null || character.Vision[3].ThisTileType == Tile.TileType.Gold || character.Vision[3].ThisTileType == Tile.TileType.Weapon))
                 {
+                    character.Pickup(map.GetItemAtPosition(character.Y, character.X));
                     map.ThisMap[character.Y, character.X] = null;
                     character.Move(Character.MovementEnum.Right);
+          
                     map.ThisMap[character.Y, character.X] = character;
-                    character.Pickup(map.GetItemAtPosition(character.Y, character.X));
+        
                     return true;
                 }
             }
@@ -72,10 +76,11 @@ namespace POE
             {
                 if (character.Y - 1 != 0 && (character.Vision[0] == null || character.Vision[0].ThisTileType == Tile.TileType.Gold || character.Vision[0].ThisTileType == Tile.TileType.Weapon))
                 {
-                    map.ThisMap[character.Y, character.X] = null;
-                    character.Move(Character.MovementEnum.Up);
-                    map.ThisMap[character.Y, character.X] = character;
                     character.Pickup(map.GetItemAtPosition(character.Y, character.X));
+                    map.ThisMap[character.Y, character.X] = null;
+                    character.Move(Character.MovementEnum.Up);             
+                    map.ThisMap[character.Y, character.X] = character;
+       
                     return true;
                 }
             }
@@ -83,11 +88,11 @@ namespace POE
             {
                 if (character.Y + 2 != map.MapHeight && (character.Vision[1] == null || character.Vision[1].ThisTileType == Tile.TileType.Gold || character.Vision[1].ThisTileType == Tile.TileType.Weapon))
                 {
-
-                    map.ThisMap[character.Y, character.X] = null;
-                    character.Move(Character.MovementEnum.Down);
-                    map.ThisMap[character.Y, character.X] = character;
                     character.Pickup(map.GetItemAtPosition(character.Y, character.X));
+                    map.ThisMap[character.Y, character.X] = null;
+                    character.Move(Character.MovementEnum.Down);                    
+                    map.ThisMap[character.Y, character.X] = character;
+                 
                     return true;
 
                 }

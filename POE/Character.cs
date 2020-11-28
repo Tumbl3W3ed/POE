@@ -9,14 +9,12 @@ namespace POE
     [System.Serializable()]
     abstract class Character : Tile
     {
-
         protected char symbol { get; set; }
         protected int hp { get; set; }
         protected int maxHP { get; set; }
         protected int damage { get; set; }
         protected Tile[] vision { get; set; }// up down left right
         protected bool dead { get; set; }
-
         protected int purse { get; set; }
 
         protected Weapon weapon;
@@ -75,16 +73,17 @@ namespace POE
         }
 
         public void Pickup(Item i)
+
         {
             if (i == null)
             {
                 return;
             }
-            if (i.GetType() == typeof(Gold))
+            if (i.ThisTileType == TileType.Gold)
             {
                 purse += ((Gold)i).GetGold();
             }
-            if (i.GetType().BaseType == typeof(Weapon))
+            if (i.ThisTileType == TileType.Weapon)
             {
                 EquipWeapon((Weapon)i);
             }

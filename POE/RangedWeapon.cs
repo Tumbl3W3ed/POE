@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace POE
 {
+    [Serializable()]
     class RangedWeapon : Weapon
     {
         public enum Types { Rifle, Longbow }
@@ -13,7 +14,7 @@ namespace POE
 
         public RangedWeapon(Types type) : base(0, 0, 0, 0, "", 0, 0)
         {
-
+            ThisTileType = TileType.Weapon;
             switch (type)
             {
                 case Types.Rifle:

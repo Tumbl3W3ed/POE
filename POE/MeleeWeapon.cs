@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace POE
 {
+    [Serializable()]
     internal class MeleeWeapon : Weapon
     {
         public enum Types { Dagger, LongSword }
@@ -13,7 +14,7 @@ namespace POE
 
         public MeleeWeapon(Types type) : base(0, 0, 0, 0, "", 0, 0)
         {
-
+            ThisTileType = TileType.Weapon;
             switch (type)
             {
                 case Types.Dagger:

@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace POE
-{   
+{
+    [Serializable()]
     abstract class Weapon : Item
     {
         protected int damage;

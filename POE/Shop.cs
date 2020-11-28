@@ -2,6 +2,7 @@
 
 namespace POE
 {
+    [Serializable()]
     class Shop
     {
         private Weapon[] weapons = new Weapon[3];

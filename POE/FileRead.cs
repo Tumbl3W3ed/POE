@@ -18,10 +18,16 @@ namespace POE
                 return null;
             }
             string file = openFileDialog.FileName;
+            if (file == "")
+                return null;
             Stream stream = File.Open(file, FileMode.Open);
 
             var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-            return (type)binaryFormatter.Deserialize(stream);
+
+
+            type result = (type)binaryFormatter.Deserialize(stream);
+            stream.Dispose();
+            return result;
         }
     }
 }

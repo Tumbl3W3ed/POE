@@ -65,6 +65,9 @@ namespace POE
 
         private void updateShop()
         {
+            btnShop1.Enabled = gameEngine.Shop.CanBuy(0);
+            btnShop2.Enabled = gameEngine.Shop.CanBuy(1);
+            btnShop3.Enabled = gameEngine.Shop.CanBuy(2);
             btnShop1.Text = gameEngine.Shop.DisplayWeapon(0);
             btnShop2.Text = gameEngine.Shop.DisplayWeapon(1);
             btnShop3.Text = gameEngine.Shop.DisplayWeapon(2);
@@ -139,6 +142,7 @@ namespace POE
                 {
                     btnAttackUp.Enabled = true;
                 }
+            
             if (gameEngine.Map.Hero.Vision[(int)Character.MovementEnum.Down - 1] != null)
                 if (gameEngine.Map.Hero.Vision[(int)Character.MovementEnum.Down - 1].ThisTileType == Tile.TileType.Enemy)
                 {
@@ -230,7 +234,8 @@ namespace POE
 
         private void LoadFile()
         {
-            gameEngine.Map = (Map)fileRead.ReadData<Map>();
+            Map temp = (Map)fileRead.ReadData<Map>();
+            if ( temp != null) gameEngine.Map = temp; else MessageBox.Show("You didn't choose a load file, nothing was loaded");
             updateMap();
         }
 
