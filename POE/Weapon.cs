@@ -12,15 +12,26 @@ namespace POE
         protected int range;
         protected int durability;
         protected int cost;
-        protected int weaponType;
+        protected string weaponType;
+
         public int Damage { get => damage; set => damage = value; }
         public virtual int Range { get => range; set => range = value; }
         public int Durability { get => durability; set => durability = value; }
         public int Cost { get => cost; set => cost = value; }
-        public int WeaponType { get => weaponType; set => weaponType = value; }
+        public string WeaponType { get => weaponType; set => weaponType = value; }
 
-        public Weapon(int damage, int range, int durability, int cost, int weaponType, int x = 0, int y = 0)  : base(y,x)
+        public Weapon(int damage, int range, int durability, int cost, string weaponType)  : base(0,0)
         {
+           
+            this.damage = damage;
+            this.range = range;
+            this.durability = durability;
+            this.cost = cost;
+            this.weaponType = weaponType;
+        }  
+        public Weapon(int damage, int range, int durability, int cost, string weaponType, int x, int y)  : base(y,x)
+        {
+           
             this.damage = damage;
             this.range = range;
             this.durability = durability;

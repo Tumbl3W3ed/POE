@@ -8,11 +8,53 @@ namespace POE
 {
     internal class MeleeWeapon : Weapon
     {
-        public enum Types { Dagger, LongSword}
+        public enum Types { Dagger, LongSword }
+        public override int Range { get => 1; set => base.Range = 1; }
 
-        public MeleeWeapon(int damage, int range, int durability, int cost, int weaponType, int x = 0, int y = 0) : base(damage, range, durability, cost, weaponType, x, y)
+        public MeleeWeapon(Types type) : base(0, 0, 0, 0, "", 0, 0)
         {
+
+            switch (type)
+            {
+                case Types.Dagger:
+                    damage = 3;
+                    durability = 10;
+                    cost = 3;
+                    weaponType = "Dagger";
+                    break;
+                case Types.LongSword:
+                    damage = 4;
+                    durability = 6;
+                    cost = 5;
+                    weaponType = "Longsword";
+                    break;
+            }
         }
+
+        public MeleeWeapon(Types type, int x,int y) : base(0, 0, 0, 0, "",x,y)
+        {
+
+            switch (type)
+            {
+                case Types.Dagger:
+                    damage = 3;
+                    durability = 10;
+                    cost = 3;
+                    weaponType = "Dagger";
+                    break;
+                case Types.LongSword:
+                    damage = 4;
+                    durability = 6;
+                    cost = 5;
+                    weaponType = "Longsword";
+                    break;
+            }
+        }
+
+
+
+
+
 
         public override string ToString()
         {
