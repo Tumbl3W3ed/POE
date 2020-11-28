@@ -50,6 +50,7 @@
     <Compile Include="Leader.cs" />
     <Compile Include="RangedWeapon.cs" />
     <Compile Include="MeleeWeapon.cs" />
+    <Compile Include="Shop.cs" />
     <Compile Include="Weapon.cs" />
     <Compile Include="FileRead.cs" />
     <Compile Include="FileWrite.cs" />

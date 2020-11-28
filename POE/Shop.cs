@@ -1,0 +1,59 @@
+﻿using System;
+
+namespace POE
+{
+    class Shop
+    {
+        private Weapon[] weapons = new Weapon[3];
+        private Random random;
+        private Character buyer;
+
+        public Shop()
+        {
+            for (int i = 0; i < weapons.Length; i++)
+            {
+                weapons[i] = RandomWeapon();
+            }
+        }
+
+        private Weapon RandomWeapon()
+        {
+            switch (random.Next(0, 4))
+            {
+                case 0:
+                    return new RangedWeapon(RangedWeapon.Types.Rifle);
+                case 1:
+                    return new RangedWeapon(RangedWeapon.Types.Rifle);
+                case 2:
+                    return new MeleeWeapon(MeleeWeapon.Types.Dagger);
+                case 3:
+                    return new MeleeWeapon(MeleeWeapon.Types.LongSword);
+
+            }
+            return null;
+        }
+
+        public bool CanBuy(int num)
+        {
+            if (weapons[num].Cost > buyer.Purse)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public void Buy(int num)
+        {
+            buyer.Pickup(weapons[num]);
+            weapons[num] = RandomWeapon();
+        }
+
+        public string DisplayWeapon(int num)
+        {
+            return "Buy " + weapons[num].WeaponType + " (" + weapons[num].Cost + "Gold)";
+        }
+    }
+}

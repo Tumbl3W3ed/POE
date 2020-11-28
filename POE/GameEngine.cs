@@ -10,6 +10,7 @@ namespace POE
     class GameEngine
     {
         private Map map;
+        private Shop shop;
 
         public Map Map
         {
@@ -19,7 +20,7 @@ namespace POE
 
         public GameEngine(int minWidth, int maxWidth, int minHeight, int maxHeight, int enemyAmount, int amountOfGoldPickUps)
         {
-          map = new Map(int minWidth, int maxWidth, int minHeight, int maxHeight, int enemyAmount, int AmountOfGoldPicks)
+            map = new Map( minWidth,  maxWidth,  minHeight,  maxHeight,  enemyAmount, amountOfGoldPickUps);
         }
 
         public void EnemiesMove()
