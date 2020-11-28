@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace POE
 {
+    [System.Serializable()]
     abstract class Enemy : Character
     {
         protected Random random = new Random();
@@ -16,7 +17,7 @@ namespace POE
 
         public override string ToString()
         {
-            return nameof(Enemy) + "at ["+this.X+","+this.Y+"] ("+this.damage+")";
+            return nameof(Enemy) + "at ["+this.X+","+this.Y+"] with ("+this.hp+") hp";
         }
     }
 }

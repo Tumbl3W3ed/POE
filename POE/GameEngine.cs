@@ -14,79 +14,105 @@ namespace POE
         public Map Map
         {
             get => map;
+            set => map = value;
         }
 
-        public GameEngine(int minWidth, int maxWidth, int minHeight, int maxHeight, int enemyAmount)
+        public GameEngine(int minWidth, int maxWidth, int minHeight, int maxHeight, int enemyAmount, int amountOfGoldPickUps)
         {
-            map = new Map(minWidth, maxWidth, minHeight, maxHeight, enemyAmount);
+          map = new Map(int minWidth, int maxWidth, int minHeight, int maxHeight, int enemyAmount, int AmountOfGoldPicks)
         }
 
-        public bool MovePlayer(Character.MovementEnum direction)
+        public void EnemiesMove()
         {
-            if (direction == Character.MovementEnum.Up)
+            foreach (var enemy in map.Enemies)
             {
-                if (map.Hero.Vision[0] == null)
+                if (enemy.GetType() != typeof(Goblin))
                 {
-                    map.Hero.Move(Character.MovementEnum.Up);
+                    continue;
+                }
+                bool canMove = false;
+                for (int i = 0; i < enemy.Vision.Length; i++)
+                {
+                    if (enemy.Vision[i] == null)
+                    {
+                        canMove = true;
+                    }
+                    if (enemy.Vision[i] != null && enemy.Vision[i].ThisTileType == Tile.TileType.Hero)
+                        continue;
+                }
+                if (!canMove)
+                    continue;
+                MovePlayer((Character.MovementEnum)map.Random.Next(0, 4) + 1, enemy);
+            }
+        }
+
+        public bool MovePlayer(Character.MovementEnum direction, Character character)
+        {
+            if (direction == Character.MovementEnum.Left)
+            {
+                if (character.X - 1 != 0 && (character.Vision[2] == null || character.Vision[2].ThisTileType == Tile.TileType.Gold))
+                {
+                    map.ThisMap[character.Y, character.X] = null;
+                    character.Move(Character.MovementEnum.Left);
+                    map.ThisMap[character.Y, character.X] = character;
+                    character.Pickup(map.GetItemAtPosition(character.Y, character.X));
                     return true;
                 }
             }
-            else if (direction == Character.MovementEnum.Down)
+            else if (direction == Character.MovementEnum.Right)
             {
-                if (map.Hero.Vision[1] == null)
+                if (character.X + 2 != map.MapWidth && (character.Vision[3] == null || character.Vision[3].ThisTileType == Tile.TileType.Gold))
                 {
-                    map.Hero.Move(Character.MovementEnum.Down);
+                    map.ThisMap[character.Y, character.X] = null;
+                    character.Move(Character.MovementEnum.Right);
+                    map.ThisMap[character.Y, character.X] = character;
+                    character.Pickup(map.GetItemAtPosition(character.Y, character.X));
                     return true;
                 }
             }
-            else if (direction == Character.MovementEnum.Left)
+            else if (direction == Character.MovementEnum.Up)
             {
-                if (map.Hero.Vision[2] == null)
+                if (character.Y - 1 != 0 && (character.Vision[0] == null || character.Vision[0].ThisTileType == Tile.TileType.Gold))
                 {
-                    map.Hero.Move(Character.MovementEnum.Left);
+                    map.ThisMap[character.Y, character.X] = null;
+                    character.Move(Character.MovementEnum.Up);
+                    map.ThisMap[character.Y, character.X] = character;
+                    character.Pickup(map.GetItemAtPosition(character.Y, character.X));
                     return true;
                 }
             }
             else
             {
-                if (map.Hero.Vision[3] == null)
+                if (character.Y + 2 != map.MapHeight && (character.Vision[1] == null || character.Vision[1].ThisTileType == Tile.TileType.Gold))
                 {
-                    map.Hero.Move(Character.MovementEnum.Right);
+                    map.ThisMap[character.Y, character.X] = null;
+                    character.Move(Character.MovementEnum.Down);
+                    map.ThisMap[character.Y, character.X] = character;
+                    character.Pickup(map.GetItemAtPosition(character.Y, character.X));
                     return true;
                 }
             }
             return false;
         }
 
-        private void textBox1_KeyUp(object sender, System.Windows.Forms.KeyEventArgs e)
+        public void EnemyAttacks()
         {
-            if (e.KeyCode == Keys.Up || e.KeyCode == Keys.W)
+            foreach (var enemy in map.Enemies)
             {
-                if (MovePlayer(Character.MovementEnum.Up))
+                if (enemy.CheckRange(map.Hero))
                 {
-                    map.UpdateVision();
+                    enemy.Attack(map.Hero);
                 }
-            }
-            if (e.KeyCode == Keys.Down || e.KeyCode == Keys.S)
-            {
-                if (MovePlayer(Character.MovementEnum.Down))
+                foreach (var e in map.Enemies)
                 {
-                   
-                    map.UpdateVision();
-                }
-            }
-            if (e.KeyCode == Keys.Left || e.KeyCode == Keys.A)
-            {
-                if (MovePlayer(Character.MovementEnum.Left))
-                {
-                    map.UpdateVision();
-                }
-            }
-            if (e.KeyCode == Keys.Right || e.KeyCode == Keys.D)
-            {
-                if (MovePlayer(Character.MovementEnum.Right))
-                {
-                    map.UpdateVision();
+                    if (e == enemy)
+                    {
+                        continue;
+                    }
+                    if (enemy.CheckRange(e))
+                    {
+                        enemy.Attack(e);
+                    }
                 }
             }
         }
