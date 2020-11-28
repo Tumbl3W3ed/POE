@@ -13,7 +13,7 @@ namespace POE
         public FrmGameView()
         {
             InitializeComponent();
-            gameEngine = new GameEngine(6, 8, 6, 8, 5, 4);
+            gameEngine = new GameEngine(6, 8, 6, 8, 5, 4,2);
             updateMap();
             lblCombat.Text = "Combat Information:";
         }
@@ -32,7 +32,8 @@ namespace POE
                 {
                     if (y == 0 || x == 0 || y == gameEngine.Map.ThisMap.GetLength(0) - 1 || x == gameEngine.Map.ThisMap.GetLength(1) - 1)
                     {
-                        mapResult += $"{"X",padWidth}";
+
+                       mapResult += $"{"X",padWidth}";
                     }
                     else if (gameEngine.Map.ThisMap[y, x] == null)
                     {
@@ -43,6 +44,9 @@ namespace POE
                         if (gameEngine.Map.ThisMap[y, x].ThisTileType == Tile.TileType.Gold)
                         {
                             mapResult += $"{"g",padWidth}";
+                        }else if (gameEngine.Map.ThisMap[y, x].ThisTileType == Tile.TileType.Weapon)
+                        {
+                            mapResult += $"{"w",padWidth}";
                         }
                         else
                             mapResult += $"{((Character)gameEngine.Map.ThisMap[y, x]).Symbol,padWidth}";
@@ -64,11 +68,24 @@ namespace POE
             {
                 output += enemy.ToString() + "\n";
             }
+            
+            if (gameEngine.Map.Hero.Hp <= 0)
+            {
+                output = "Enemies Win";
+            }
+            if(gameEngine.Map.Enemies.Length==0 && gameEngine.Map.Hero.Hp > 0)
+            {
+                output = "YOU WIN!! nice...";
+            }
             lblEnemyData.Text = "Enemy Data:\n" + output;
         }
 
         private void UpdateHeroStats()
         {
+            if (gameEngine.Map.Hero.Hp <= 0)
+            {
+                LblPlayerStats.Text = "You Lose";
+            }
             LblPlayerStats.Text = gameEngine.Map.Hero.ToString();
         }
 
@@ -79,6 +96,7 @@ namespace POE
             if (target.IsDead())
             {
                 lblCombat.Text = "Combat Information:";
+                
                 gameEngine.Map.ThisMap[target.Y, target.X] = null;
             }
             gameEngine.EnemyAttacks();
@@ -126,6 +144,7 @@ namespace POE
                 {
                     btnAttackRight.Enabled = true;
                 }
+            
         }
 
         private void BtnAttackUp_Click(object sender, EventArgs e)
@@ -177,6 +196,7 @@ namespace POE
             if (gameEngine.MovePlayer(Character.MovementEnum.Right, gameEngine.Map.Hero))
             {
                 MovePlayer();
+                  
             }
         }
 
@@ -185,6 +205,7 @@ namespace POE
             gameEngine.Map.UpdateVision();
             gameEngine.EnemiesMove();
             RemoveEnemies();
+            gameEngine.EnemyAttacks();
             updateMap();
         }
 

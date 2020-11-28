@@ -10,6 +10,7 @@ namespace POE
     {
         public EmptyTile(int y, int x) : base(y, x)
         {
+            
         }
     }
 }

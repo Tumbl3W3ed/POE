@@ -23,7 +23,7 @@ namespace POE
                 case 0:
                     return new RangedWeapon(RangedWeapon.Types.Rifle);
                 case 1:
-                    return new RangedWeapon(RangedWeapon.Types.Rifle);
+                    return new RangedWeapon(RangedWeapon.Types.Longbow);
                 case 2:
                     return new MeleeWeapon(MeleeWeapon.Types.Dagger);
                 case 3:

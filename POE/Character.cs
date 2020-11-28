@@ -19,6 +19,8 @@ namespace POE
 
         protected int purse { get; set; }
 
+        protected Weapon weapon;
+
         public int Purse
         {
             get => purse;
@@ -56,17 +58,20 @@ namespace POE
             get => dead;
             set => dead = value;
         }
+        public Weapon Weapon { get => weapon; set => weapon = value; }
+
         public enum MovementEnum
         {
             NoMovement, Up, Down, Left, Right
         }
-        public Character(int y, int x, int maxhp, int damage, char symbol) : base(y, x)
+        public Character(int y, int x, int maxhp, int damage, char symbol, Weapon weapon) : base(y, x)
         {
             this.symbol = symbol;
             maxHP = maxhp;
             hp = maxhp;
             this.damage = damage;
             vision = new Tile[4];
+            this.weapon = weapon;
         }
 
         public void Pickup(Item i)
@@ -79,6 +84,15 @@ namespace POE
             {
                 purse += ((Gold)i).GetGold();
             }
+            if(i.GetType() == typeof(Weapon))
+            {
+                EquipWeapon((Weapon)i);
+            }
+        }
+
+        private void EquipWeapon(Weapon w)
+        {
+            weapon = w;
         }
 
         public virtual void Attack(Character target)

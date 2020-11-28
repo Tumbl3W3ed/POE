@@ -3,18 +3,23 @@
     [System.Serializable()]
     class Goblin : Enemy
     {
-        public Goblin(int y, int x) : base(y, x, 10, 1, 'G')
+        public Goblin(int y, int x) : base(y, x, 10, 1, 'G',new MeleeWeapon(MeleeWeapon.Types.Dagger))
         {
-
+            
         }
 
         public override MovementEnum ReturnMove(MovementEnum move)
         {
             bool canmove = false;
-            int direction = random.Next(1, 5);
+            int direction = random.Next(0, 4);
             for (int i = 0; i < vision.Length; i++)
             {
                 if (vision[i] == null)
+                {
+                    canmove = true;
+                    break;
+                }
+                if (vision[i].GetType() != typeof(Character) && vision[i]?.ThisTileType != TileType.Empty)
                 {
                     canmove = true;
                     break;
@@ -26,9 +31,13 @@
             }
             while (vision[direction] != null)
             {
-                direction = random.Next(1, 5);
+                if (vision[direction].GetType() != typeof(Character) && vision[direction]?.ThisTileType != TileType.Empty)
+                {
+                    return (MovementEnum)direction + 1;
+                }
+                direction = random.Next(0, 4);
             }
-            return (MovementEnum)direction;
+            return (MovementEnum)direction + 1;
         }
     }
 }

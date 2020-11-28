@@ -18,32 +18,22 @@ namespace POE
             set => map = value;
         }
 
-        public GameEngine(int minWidth, int maxWidth, int minHeight, int maxHeight, int enemyAmount, int amountOfGoldPickUps)
+        public GameEngine(int minWidth, int maxWidth, int minHeight, int maxHeight, int enemyAmount, int amountOfGoldPickUps, int amountOfWepPickUps)
         {
-            map = new Map( minWidth,  maxWidth,  minHeight,  maxHeight,  enemyAmount, amountOfGoldPickUps);
+            map = new Map(minWidth, maxWidth, minHeight, maxHeight, enemyAmount, amountOfGoldPickUps, amountOfWepPickUps);
         }
 
         public void EnemiesMove()
         {
             foreach (var enemy in map.Enemies)
             {
-                if (enemy.GetType() != typeof(Goblin))
+                if (enemy.GetType() == typeof(Mage))
                 {
                     continue;
                 }
-                bool canMove = false;
-                for (int i = 0; i < enemy.Vision.Length; i++)
-                {
-                    if (enemy.Vision[i] == null)
-                    {
-                        canMove = true;
-                    }
-                    if (enemy.Vision[i] != null && enemy.Vision[i].ThisTileType == Tile.TileType.Hero)
-                        continue;
-                }
-                if (!canMove)
-                    continue;
-                MovePlayer((Character.MovementEnum)map.Random.Next(0, 4) + 1, enemy);
+                map.UpdateCharacterVision(enemy);
+                while (!MovePlayer(enemy.ReturnMove(Character.MovementEnum.NoMovement), enemy)) { }
+
             }
         }
 
@@ -51,7 +41,7 @@ namespace POE
         {
             if (direction == Character.MovementEnum.Left)
             {
-                if (character.X - 1 != 0 && (character.Vision[2] == null || character.Vision[2].ThisTileType == Tile.TileType.Gold))
+                if (character.X - 1 != 0 && (character.Vision[2] == null || character.Vision[2].ThisTileType == Tile.TileType.Gold || character.Vision[2].ThisTileType == Tile.TileType.Weapon))
                 {
                     map.ThisMap[character.Y, character.X] = null;
                     character.Move(Character.MovementEnum.Left);
@@ -62,7 +52,7 @@ namespace POE
             }
             else if (direction == Character.MovementEnum.Right)
             {
-                if (character.X + 2 != map.MapWidth && (character.Vision[3] == null || character.Vision[3].ThisTileType == Tile.TileType.Gold))
+                if (character.X + 2 != map.MapWidth && (character.Vision[3] == null || character.Vision[3].ThisTileType == Tile.TileType.Gold || character.Vision[3].ThisTileType == Tile.TileType.Weapon))
                 {
                     map.ThisMap[character.Y, character.X] = null;
                     character.Move(Character.MovementEnum.Right);
@@ -73,7 +63,7 @@ namespace POE
             }
             else if (direction == Character.MovementEnum.Up)
             {
-                if (character.Y - 1 != 0 && (character.Vision[0] == null || character.Vision[0].ThisTileType == Tile.TileType.Gold))
+                if (character.Y - 1 != 0 && (character.Vision[0] == null || character.Vision[0].ThisTileType == Tile.TileType.Gold || character.Vision[0].ThisTileType == Tile.TileType.Weapon))
                 {
                     map.ThisMap[character.Y, character.X] = null;
                     character.Move(Character.MovementEnum.Up);
@@ -82,17 +72,20 @@ namespace POE
                     return true;
                 }
             }
-            else
+            else if (direction == Character.MovementEnum.Down)
             {
-                if (character.Y + 2 != map.MapHeight && (character.Vision[1] == null || character.Vision[1].ThisTileType == Tile.TileType.Gold))
+                if (character.Y + 2 != map.MapHeight && (character.Vision[1] == null || character.Vision[1].ThisTileType == Tile.TileType.Gold || character.Vision[1].ThisTileType == Tile.TileType.Weapon))
                 {
+
                     map.ThisMap[character.Y, character.X] = null;
                     character.Move(Character.MovementEnum.Down);
                     map.ThisMap[character.Y, character.X] = character;
                     character.Pickup(map.GetItemAtPosition(character.Y, character.X));
                     return true;
+
                 }
             }
+            else { return true; }
             return false;
         }
 
@@ -106,7 +99,7 @@ namespace POE
                 }
                 foreach (var e in map.Enemies)
                 {
-                    if (e == enemy)
+                    if (e == enemy || enemy.GetType() != typeof(Mage))
                     {
                         continue;
                     }
