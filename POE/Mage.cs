@@ -2,7 +2,7 @@
 {
     class Mage : Enemy
     {
-        public Mage(int y, int x) : base(y, x, 10, 2, 'M')
+        public Mage(int y, int x) : base(y, x, 10, 2, 'M', null)
         {
 
         }
@@ -22,6 +22,10 @@
                     return true;
             }
             return false;
+        }
+        public override string ToString()
+        {
+            return (weapon != null ? "Equipped: " : "BareHanded: ") + "Mage" + base.ToString();
         }
     }
 }

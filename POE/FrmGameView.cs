@@ -95,8 +95,7 @@ namespace POE
             lblCombat.Text = "Combat Information:\n" + ((Enemy)target).ToString();
             if (target.IsDead())
             {
-                lblCombat.Text = "Combat Information:";
-                
+                lblCombat.Text = "Combat Information:";                
                 gameEngine.Map.ThisMap[target.Y, target.X] = null;
             }
             gameEngine.EnemyAttacks();

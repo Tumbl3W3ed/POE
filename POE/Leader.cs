@@ -13,7 +13,6 @@ namespace POE
         public Leader(int y, int x, Tile target) : base(y, x, 20, 2, 'L', new MeleeWeapon(MeleeWeapon.Types.LongSword))
         {
             leadersTarget = target;
-
         }
 
 
@@ -77,6 +76,11 @@ namespace POE
                 direction = random.Next(0, 4);
             }
             return (MovementEnum)direction + 1;
+        }
+
+        public override string ToString()
+        {
+            return (weapon != null ? "Equipped: " : "BareHanded: ") + "Leader" +base.ToString();
         }
     }
 }

@@ -3,9 +3,9 @@
     [System.Serializable()]
     class Goblin : Enemy
     {
-        public Goblin(int y, int x) : base(y, x, 10, 1, 'G',new MeleeWeapon(MeleeWeapon.Types.Dagger))
+        public Goblin(int y, int x) : base(y, x, 10, 1, 'G', new MeleeWeapon(MeleeWeapon.Types.Dagger))
         {
-            
+
         }
 
         public override MovementEnum ReturnMove(MovementEnum move)
@@ -38,6 +38,11 @@
                 direction = random.Next(0, 4);
             }
             return (MovementEnum)direction + 1;
+        }
+
+        public override string ToString()
+        {
+            return (weapon != null ? "Equipped: " : "BareHanded: ")+"Goblin"+base.ToString();
         }
     }
 }

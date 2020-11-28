@@ -17,7 +17,7 @@ namespace POE
 
         public override string ToString()
         {
-            return nameof(Enemy) + "at [" + this.X + "," + this.Y + "] with (" + this.hp + ") hp";
+            return " at [" + this.X + "," + this.Y + "]  (" + this.hp + "hp)" + (weapon != null ? " with " + weapon.Durability + "x" + weapon.WeaponType : "");
         }
     }
 }
