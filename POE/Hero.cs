@@ -7,6 +7,7 @@
         public Hero(int y, int x, int maxhp) : base(y, x, maxhp, 2, 'H',null)
         {
             this.ThisTileType = TileType.Hero;
+            purse = 0;
         }
 
         public override MovementEnum ReturnMove(MovementEnum move)

@@ -5,7 +5,7 @@
     {
         public Goblin(int y, int x) : base(y, x, 10, 1, 'G', new MeleeWeapon(MeleeWeapon.Types.Dagger))
         {
-
+            purse = 1;
         }
 
         public override MovementEnum ReturnMove(MovementEnum move)

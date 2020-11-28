@@ -76,7 +76,7 @@ namespace POE
 
         public void Pickup(Item i)
         {
-            if(i == null)
+            if (i == null)
             {
                 return;
             }
@@ -84,10 +84,20 @@ namespace POE
             {
                 purse += ((Gold)i).GetGold();
             }
-            if(i.GetType() == typeof(Weapon))
+            if (i.GetType() == typeof(Weapon))
             {
                 EquipWeapon((Weapon)i);
             }
+        }
+
+        public void Loot(Character character)
+        {
+            purse += character.purse;
+            if (this.GetType() != typeof(Mage))
+                if (weapon == null)
+                {
+                    weapon = character.weapon;
+                }
         }
 
         private void EquipWeapon(Weapon w)
@@ -101,6 +111,7 @@ namespace POE
             if (target.hp <= 0)
             {
                 target.dead = true;
+                Loot(target);
             }
         }
 

@@ -4,7 +4,7 @@
     {
         public Mage(int y, int x) : base(y, x, 10, 2, 'M', null)
         {
-
+            purse = 3;
         }
 
         public override MovementEnum ReturnMove(MovementEnum move)
