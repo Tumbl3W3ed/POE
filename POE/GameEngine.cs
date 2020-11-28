@@ -18,9 +18,16 @@ namespace POE
             set => map = value;
         }
 
-        public GameEngine(int minWidth, int maxWidth, int minHeight, int maxHeight, int enemyAmount, int amountOfGoldPickUps, int amountOfWepPickUps)
+        public Shop Shop
         {
+            get => shop;
+            set => shop = value;
+        }
+
+        public GameEngine(int minWidth, int maxWidth, int minHeight, int maxHeight, int enemyAmount, int amountOfGoldPickUps, int amountOfWepPickUps)
+        {          
             map = new Map(minWidth, maxWidth, minHeight, maxHeight, enemyAmount, amountOfGoldPickUps, amountOfWepPickUps);
+            shop = new Shop(map.Hero);
         }
 
         public void EnemiesMove()

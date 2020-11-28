@@ -19,7 +19,7 @@
                     canmove = true;
                     break;
                 }
-                if (vision[i].GetType() != typeof(Character) && vision[i]?.ThisTileType != TileType.Empty)
+                if ((vision[i].GetType().BaseType != typeof(Character) && vision[i].GetType().BaseType.BaseType != typeof(Character) && vision[i]?.ThisTileType != TileType.Empty))
                 {
                     canmove = true;
                     break;
@@ -31,7 +31,7 @@
             }
             while (vision[direction] != null)
             {
-                if (vision[direction].GetType() != typeof(Character) && vision[direction]?.ThisTileType != TileType.Empty)
+                if (vision[direction].GetType().BaseType != typeof(Character) && vision[direction].GetType().BaseType.BaseType != typeof(Character) && vision[direction]?.ThisTileType != TileType.Empty)
                 {
                     return (MovementEnum)direction + 1;
                 }

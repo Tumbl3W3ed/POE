@@ -42,6 +42,9 @@
             this.lblEnemyData = new System.Windows.Forms.Label();
             this.BtnSave = new System.Windows.Forms.Button();
             this.btnLoad = new System.Windows.Forms.Button();
+            this.btnShop1 = new System.Windows.Forms.Button();
+            this.btnShop2 = new System.Windows.Forms.Button();
+            this.btnShop3 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // LblMap
@@ -181,11 +184,44 @@
             this.btnLoad.UseVisualStyleBackColor = true;
             this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
             // 
+            // btnShop1
+            // 
+            this.btnShop1.Location = new System.Drawing.Point(71, 479);
+            this.btnShop1.Name = "btnShop1";
+            this.btnShop1.Size = new System.Drawing.Size(148, 23);
+            this.btnShop1.TabIndex = 14;
+            this.btnShop1.Text = "Buy ";
+            this.btnShop1.UseVisualStyleBackColor = true;
+            this.btnShop1.Click += new System.EventHandler(this.btnShop1_Click);
+            // 
+            // btnShop2
+            // 
+            this.btnShop2.Location = new System.Drawing.Point(298, 479);
+            this.btnShop2.Name = "btnShop2";
+            this.btnShop2.Size = new System.Drawing.Size(164, 23);
+            this.btnShop2.TabIndex = 15;
+            this.btnShop2.Text = "Buy ";
+            this.btnShop2.UseVisualStyleBackColor = true;
+            this.btnShop2.Click += new System.EventHandler(this.btnShop2_Click);
+            // 
+            // btnShop3
+            // 
+            this.btnShop3.Location = new System.Drawing.Point(536, 479);
+            this.btnShop3.Name = "btnShop3";
+            this.btnShop3.Size = new System.Drawing.Size(169, 23);
+            this.btnShop3.TabIndex = 16;
+            this.btnShop3.Text = "Buy ";
+            this.btnShop3.UseVisualStyleBackColor = true;
+            this.btnShop3.Click += new System.EventHandler(this.btnShop3_Click);
+            // 
             // FrmGameView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1047, 534);
+            this.Controls.Add(this.btnShop3);
+            this.Controls.Add(this.btnShop2);
+            this.Controls.Add(this.btnShop1);
             this.Controls.Add(this.btnLoad);
             this.Controls.Add(this.BtnSave);
             this.Controls.Add(this.lblEnemyData);
@@ -223,6 +259,9 @@
         private System.Windows.Forms.Label lblEnemyData;
         private System.Windows.Forms.Button BtnSave;
         private System.Windows.Forms.Button btnLoad;
+        private System.Windows.Forms.Button btnShop1;
+        private System.Windows.Forms.Button btnShop2;
+        private System.Windows.Forms.Button btnShop3;
     }
 }
 

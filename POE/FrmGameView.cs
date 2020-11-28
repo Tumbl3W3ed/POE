@@ -13,7 +13,7 @@ namespace POE
         public FrmGameView()
         {
             InitializeComponent();
-            gameEngine = new GameEngine(6, 8, 6, 8, 5, 4,2);
+            gameEngine = new GameEngine(6, 8, 6, 8, 5, 4, 2);
             updateMap();
             lblCombat.Text = "Combat Information:";
         }
@@ -33,7 +33,7 @@ namespace POE
                     if (y == 0 || x == 0 || y == gameEngine.Map.ThisMap.GetLength(0) - 1 || x == gameEngine.Map.ThisMap.GetLength(1) - 1)
                     {
 
-                       mapResult += $"{"X",padWidth}";
+                        mapResult += $"{"X",padWidth}";
                     }
                     else if (gameEngine.Map.ThisMap[y, x] == null)
                     {
@@ -44,7 +44,8 @@ namespace POE
                         if (gameEngine.Map.ThisMap[y, x].ThisTileType == Tile.TileType.Gold)
                         {
                             mapResult += $"{"g",padWidth}";
-                        }else if (gameEngine.Map.ThisMap[y, x].ThisTileType == Tile.TileType.Weapon)
+                        }
+                        else if (gameEngine.Map.ThisMap[y, x].ThisTileType == Tile.TileType.Weapon)
                         {
                             mapResult += $"{"w",padWidth}";
                         }
@@ -59,7 +60,17 @@ namespace POE
             UpdateHeroStats();
             updateAttackTargets();
             updateEnemyStats();
+            updateShop();
         }
+
+        private void updateShop()
+        {
+            btnShop1.Text = gameEngine.Shop.DisplayWeapon(0);
+            btnShop2.Text = gameEngine.Shop.DisplayWeapon(1);
+            btnShop3.Text = gameEngine.Shop.DisplayWeapon(2);
+        }
+
+
 
         private void updateEnemyStats()
         {
@@ -68,12 +79,12 @@ namespace POE
             {
                 output += enemy.ToString() + "\n";
             }
-            
+
             if (gameEngine.Map.Hero.Hp <= 0)
             {
                 output = "Enemies Win";
             }
-            if(gameEngine.Map.Enemies.Length==0 && gameEngine.Map.Hero.Hp > 0)
+            if (gameEngine.Map.Enemies.Length == 0 && gameEngine.Map.Hero.Hp > 0)
             {
                 output = "YOU WIN!! nice...";
             }
@@ -95,7 +106,7 @@ namespace POE
             lblCombat.Text = "Combat Information:\n" + ((Enemy)target).ToString();
             if (target.IsDead())
             {
-                lblCombat.Text = "Combat Information:";                
+                lblCombat.Text = "Combat Information:";
                 gameEngine.Map.ThisMap[target.Y, target.X] = null;
             }
             gameEngine.EnemyAttacks();
@@ -143,7 +154,6 @@ namespace POE
                 {
                     btnAttackRight.Enabled = true;
                 }
-            
         }
 
         private void BtnAttackUp_Click(object sender, EventArgs e)
@@ -195,7 +205,7 @@ namespace POE
             if (gameEngine.MovePlayer(Character.MovementEnum.Right, gameEngine.Map.Hero))
             {
                 MovePlayer();
-                  
+
             }
         }
 
@@ -222,6 +232,23 @@ namespace POE
         {
             gameEngine.Map = (Map)fileRead.ReadData<Map>();
             updateMap();
+        }
+
+        private void btnShop1_Click(object sender, EventArgs e)
+        {
+            gameEngine.Shop.Buy(0);
+
+        }
+
+        private void btnShop2_Click(object sender, EventArgs e)
+        {
+            gameEngine.Shop.Buy(1);
+
+        }
+
+        private void btnShop3_Click(object sender, EventArgs e)
+        {
+            gameEngine.Shop.Buy(2);
         }
     }
 }

@@ -5,11 +5,12 @@ namespace POE
     class Shop
     {
         private Weapon[] weapons = new Weapon[3];
-        private Random random;
+        private Random random = new Random();
         private Character buyer;
 
-        public Shop()
+        public Shop(Character buyer)
         {
+            this.buyer = buyer;
             for (int i = 0; i < weapons.Length; i++)
             {
                 weapons[i] = RandomWeapon();
@@ -48,6 +49,7 @@ namespace POE
         public void Buy(int num)
         {
             buyer.Pickup(weapons[num]);
+            buyer.Purse -= weapons[num].Cost;
             weapons[num] = RandomWeapon();
         }
 

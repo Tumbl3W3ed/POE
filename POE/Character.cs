@@ -84,7 +84,7 @@ namespace POE
             {
                 purse += ((Gold)i).GetGold();
             }
-            if (i.GetType() == typeof(Weapon))
+            if (i.GetType().BaseType == typeof(Weapon))
             {
                 EquipWeapon((Weapon)i);
             }
@@ -96,7 +96,7 @@ namespace POE
             if (this.GetType() != typeof(Mage))
                 if (weapon == null)
                 {
-                    weapon = character.weapon;
+                    EquipWeapon(character.weapon);
                 }
         }
 
